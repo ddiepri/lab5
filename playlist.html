@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Darify - Playlist</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page page-playlist">
+      <div class="frame">
+        <header class="topbar">
+          <div class="brand">
+            <div class="brand-mark">D</div>
+            <span>Darify</span>
+          </div>
+          <nav class="nav">
+            <a href="index.html">Home</a>
+            <a class="active" href="#">Playlists</a>
+            <a href="index.html#contact">Contact</a>
+          </nav>
+          <div class="actions">
+            <span id="auth-status" class="status hidden"></span>
+            <button id="btn-login" class="btn ghost">Log in</button>
+            <button id="btn-logout" class="btn ghost hidden">Log out</button>
+            <button id="download-app" class="btn">Download app</button>
+          </div>
+        </header>
+
+        <div class="layout">
+          <aside class="sidebar" aria-label="Navigation">
+            <a class="icon-btn" href="index.html" title="Home" aria-label="Home">
+              <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                <path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-5.5a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2V21H4a1 1 0 0 1-1-1z" fill="currentColor"/>
+              </svg>
+            </a>
+            <button class="icon-btn accent" id="create-playlist" title="Create playlist">＋</button>
+            <button class="icon-btn" id="edit-meta" title="Edit">✎</button>
+            <button class="icon-btn" id="queue-toggle" title="Queue">≡</button>
+            <button class="icon-btn" id="reset-demo" title="Reset demo">↺</button>
+            <div class="icon-btn static" title="Coming soon">★</div>
+            <div class="icon-btn static" title="Widgets">☁</div>
+          </aside>
+
+          <main class="playlist-main">
+            <div class="empty hidden" id="playlist-empty">No playlists yet — press “＋” to create one.</div>
+            <div id="playlist-template">
+
+              <div class="section" style="margin-top: 16px;" id="library-section">
+                <h2 style="margin:0 0 8px;font-size:18px;">My library</h2>
+                <div class="chip-list" id="library-list"></div>
+              </div>
+
+              <div class="playlist-top" style="margin-top: 18px;" id="playlist-top">
+                <div class="cover-large" id="cover-drop">
+                  <span id="cover-label">Cover</span>
+                  <img id="cover-image" class="hidden" alt="Playlist cover" />
+                  <div class="cover-upload">
+                    <input id="cover-input" type="file" accept="image/*" title="Upload cover" />
+                  </div>
+                  <button class="btn cover-remove hidden" id="cover-remove">Remove cover</button>
+                </div>
+                <div class="playlist-meta">
+                  <div class="badge" id="privacy">Public</div>
+                  <h2 id="playlist-name">Playlist name</h2>
+                  <p id="playlist-description">Playlist description</p>
+                <div class="tags">
+                  <span class="tag" id="track-count">0 tracks</span>
+                </div>
+                <div class="toolbar">
+                  <button class="btn ghost" id="btn-edit-open">Edit ✎</button>
+                  <button class="btn" id="btn-private-toggle">Close access</button>
+                  <button class="btn ghost" id="btn-copy-link">Copy link</button>
+                </div>
+                <div class="edit-inline hidden" id="edit-inline">
+                  <div class="search" style="margin-top:8px;">
+                    <input id="edit-name" placeholder="Title" required />
+                  </div>
+                  <div class="search" style="margin-top:8px;">
+                    <input id="edit-description" placeholder="Description" />
+                  </div>
+                  <div class="toolbar" style="justify-content:flex-end; gap:10px;">
+                    <button type="button" class="btn ghost" id="edit-cancel">Cancel</button>
+                    <button type="button" class="btn primary" id="edit-save">Save</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+              <div style="margin-top: 22px;" id="track-section">
+                <div class="row" id="track-header" style="background: none; border: none; box-shadow: none; padding: 0;">
+                  <div class="cell"><strong>#</strong></div>
+                  <div class="cell"><strong>Track</strong></div>
+                  <div class="cell"><strong>Album</strong></div>
+                  <div class="cell"><strong>Added</strong></div>
+                  <div class="cell" aria-hidden="true"></div>
+                </div>
+                <div id="track-list"></div>
+                <div class="empty" id="track-empty">The playlist is empty — add a track using the search below.</div>
+              </div>
+
+              <div class="pill-tracks" style="margin-top:18px;">
+              <input id="track-search" type="search" placeholder="Enter a track or artist" />
+                <button class="btn primary" id="add-from-search">Add</button>
+              </div>
+              <div class="chip-list" id="track-suggestions" style="margin-top: 8px;"></div>
+
+              <div class="similar hidden" id="similar-block">
+                <div class="similar-header">
+                  <h2>Similar</h2>
+                  <div class="carousel-controls">
+                    <button class="btn ghost" id="similar-prev" title="Previous">←</button>
+                    <button class="btn ghost" id="similar-next" title="Next">→</button>
+                  </div>
+                </div>
+                <div class="carousel" id="similar-carousel">
+                  <div class="carousel-track" id="similar"></div>
+                </div>
+              </div>
+
+              <div class="queue-panel hidden" id="queue-panel">
+                <div class="toolbar">
+                  <strong>Playback queue</strong>
+                  <span class="status" id="queue-status">Ready</span>
+                  <button class="btn ghost" id="queue-close">Hide</button>
+                </div>
+                <div id="queue-list"></div>
+                <div class="empty" id="queue-empty">Queue is empty — add tracks via search.</div>
+              </div>
+            </div>
+          </main>
+        </div>
+
+        <section id="playlist-guest" class="guest hidden">
+          <h2>Sign in to create your playlists</h2>
+          <p style="color:var(--muted);max-width:500px;">
+            Log in to start creating and saving your own playlists in Darify.
+          </p>
+          <button class="btn primary" id="guest-login">Log in</button>
+        </section>
+
+        <div class="player" aria-label="Player">
+          <div class="player-now">
+            <div class="cover"></div>
+            <div class="track-meta">
+              <div class="track-title" id="player-title">Sundress</div>
+              <div class="track-artist" id="player-artist">A$AP Rocky</div>
+            </div>
+          </div>
+          <div class="player-controls">
+            <button aria-label="Previous">⏮</button>
+            <button id="player-play" aria-label="Play/Pause">▶</button>
+            <button aria-label="Next">⏭</button>
+          </div>
+          <input type="range" class="progress" id="player-progress" min="0" max="100" value="60" aria-label="Seek" />
+        </div>
+
+        <footer class="footer">
+          <div class="brand">
+            <div class="brand-mark">D</div>
+            <span>Darify</span>
+          </div>
+          <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="playlist.html">Playlists</a>
+            <a href="index.html#contact">Contact</a>
+          </nav>
+        </footer>
+      </div>
+    </div>
+    <div id="toast" class="toast"></div>
+
+    <div id="login-modal" class="modal hidden">
+      <div class="card">
+        <h3 style="margin:0;">Log in</h3>
+        <p style="margin:6px 0 12px; color: var(--muted);">Simulate sign-in to unlock the library.</p>
+        <form id="login-form">
+          <div class="search" style="margin-top:8px;">
+            <input name="email" type="email" placeholder="Email" required />
+          </div>
+          <div class="search" style="margin-top:8px;">
+            <input name="password" type="password" placeholder="Password" required />
+          </div>
+          <div class="toolbar" style="justify-content:flex-end;">
+            <button type="button" class="btn ghost" id="login-cancel">Cancel</button>
+            <button type="submit" class="btn primary">Log in</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="create-modal" class="modal hidden">
+      <div class="card">
+        <h3 style="margin:0;">New playlist</h3>
+        <p style="margin:6px 0 12px; color: var(--muted);">Enter a title and description for your new playlist.</p>
+        <form id="create-form">
+          <div class="search" style="margin-top:8px;">
+            <input name="name" placeholder="Title" required />
+          </div>
+          <div class="search" style="margin-top:8px;">
+            <input name="description" placeholder="Description" />
+          </div>
+          <div class="toolbar" style="justify-content:flex-end;">
+            <button type="button" class="btn ghost" id="create-cancel">Cancel</button>
+            <button type="submit" class="btn primary">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="playlist.js"></script>
+  </body>
+</html>

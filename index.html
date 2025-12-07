@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Darify - Home</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page page-home">
+      <div class="frame">
+        <header class="topbar">
+          <div class="brand">
+            <div class="brand-mark">D</div>
+            <span>Darify</span>
+          </div>
+          <nav class="nav">
+            <a class="active" href="#">Home</a>
+            <a href="playlist.html">Playlists</a>
+            <a href="index.html#contact">Contact</a>
+          </nav>
+          <div class="actions">
+            <span id="auth-status" class="status hidden"></span>
+            <button id="btn-login" class="btn ghost">Log in</button>
+            <button id="btn-logout" class="btn ghost hidden">Log out</button>
+            <button id="download-app" class="btn">Download app</button>
+          </div>
+        </header>
+
+        <section class="hero">
+          <div class="hero-content" style="grid-column: span 2;">
+            <h1>Darify - build and play</h1>
+            <p>
+              Create playlists and keep recent listening at hand.
+            </p>
+            <div class="cta" style="justify-content:flex-start; margin-top:12px;">
+              <a class="btn primary" href="playlist.html">Open playlist workspace</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <h2>Last listening</h2>
+          </div>
+          <div class="carousel">
+            <div class="carousel-track" id="last-listening"></div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <h2>Releases</h2>
+          </div>
+          <div class="carousel">
+            <div class="carousel-track" id="releases"></div>
+          </div>
+        </section>
+
+        <section class="section" id="artists">
+          <div class="section-header">
+            <h2>Popular artists</h2>
+            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+              <div class="pill-input pill-artist">
+                <input id="artist-search" type="search" placeholder="Search artist by name" />
+                <button class="btn ghost" id="artist-search-btn">Search</button>
+              </div>
+            </div>
+          </div>
+          <div class="empty hidden" id="artist-empty">No artists found. Try search another name.</div>
+          <div class="carousel">
+            <div class="carousel-track" id="artist-list"></div>
+          </div>
+        </section>
+
+        <div class="cta">
+          <a class="btn primary" href="playlist.html">Go to your library</a>
+        </div>
+
+        <section class="section" id="contact">
+          <h2>Contact</h2>
+          <div class="card">
+            <div style="text-align:center; color:var(--muted);">
+              <div>Reach us at:</div>
+              <div style="margin-top:4px; display:flex; justify-content:center; gap:92px; flex-wrap:wrap;">
+                <span>support@darify.app</span>
+                <span>+7 (999) 123-45-67</span>
+                <span>Mon–Fri 10:00–19:00</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="player" aria-label="Mini player">
+          <div class="player-now">
+            <div class="cover"></div>
+            <div class="track-meta">
+              <div class="track-title">Sundress</div>
+              <div class="track-artist">A$AP Rocky</div>
+            </div>
+          </div>
+          <div class="player-controls">
+            <button aria-label="Previous">⏮</button>
+            <button id="player-play" aria-label="Play/Pause">▶</button>
+            <button aria-label="Next">⏭</button>
+          </div>
+          <input type="range" class="progress" id="player-progress" min="0" max="100" value="60" aria-label="Seek" />
+        </div>
+
+        <footer class="footer">
+          <div class="brand">
+            <div class="brand-mark">D</div>
+            <span>Darify</span>
+          </div>
+          <nav class="nav">
+            <a href="#">Home</a>
+            <a href="playlist.html">Playlist</a>
+            <a href="index.html#contact">Contact</a>
+          </nav>
+        </footer>
+      </div>
+    </div>
+
+    <div id="login-modal" class="modal hidden">
+      <div class="card">
+        <h3 style="margin:0;">Log in</h3>
+        <p style="margin:6px 0 12px; color: var(--muted);">Simulate sign-in to unlock the library.</p>
+        <form id="login-form">
+          <div class="search" style="margin-top:8px;">
+            <input name="email" type="email" placeholder="Email" required />
+          </div>
+          <div class="search" style="margin-top:8px;">
+            <input name="password" type="password" placeholder="Password" required />
+          </div>
+          <div class="toolbar" style="justify-content:flex-end;">
+            <button type="button" class="btn ghost" id="login-cancel">Cancel</button>
+            <button type="submit" class="btn primary">Log in</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
